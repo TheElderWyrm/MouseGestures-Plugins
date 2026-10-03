@@ -1,0 +1,1 @@
+{"id":"com.mousegestures.lib.mouseshake","name":"Mouse Shake","kind":"detection","version":"1.0.0","author":"MouseGestures","description":"A trigger that fires when you shake the pointer side to side. Bind it to any action in the gesture editor (Plugin trigger).","principalClass":"MouseShakePlugin"}

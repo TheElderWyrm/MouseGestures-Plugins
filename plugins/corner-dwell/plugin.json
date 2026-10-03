@@ -1,0 +1,1 @@
+{"id":"com.mousegestures.lib.cornerdwell","name":"Corner Dwell","kind":"detection","version":"1.0.0","author":"MouseGestures","description":"Triggers when the pointer rests in a screen corner for about a second (one trigger per corner). Unlike built-in screen zones, a quick pass through the corner does nothing.","principalClass":"CornerDwellPlugin"}

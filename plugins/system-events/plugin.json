@@ -1,0 +1,1 @@
+{"id":"com.mousegestures.lib.systemevents","name":"System Events","kind":"detection","version":"1.0.0","author":"MouseGestures","description":"Triggers on system events: wake from sleep, screen locked/unlocked, display connected or disconnected, power adapter plugged in or unplugged.","principalClass":"SystemEventsPlugin"}

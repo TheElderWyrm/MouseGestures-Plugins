@@ -1,0 +1,1 @@
+{"id":"com.mousegestures.lib.focustimer","name":"Focus Timer","kind":"action","version":"1.0.0","author":"MouseGestures","description":"Start a countdown timer from a gesture (default 25 minutes) and get a notification and sound when it ends. Cancel or check it with other gestures.","permissions":[],"principalClass":"FocusTimerPlugin"}
