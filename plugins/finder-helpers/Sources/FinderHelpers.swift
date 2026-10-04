@@ -2,15 +2,26 @@ import Cocoa
 import MouseGestures
 
 @objc(FinderHelpersPlugin)
-public final class FinderHelpersPlugin: NSObject, GestureActionPlugin {
+public final class FinderHelpersPlugin: NSObject, GestureActionPlugin, PluginExtension {
     public var identifier: String { "com.mousegestures.lib.finderhelpers" }
     public var name: String { "Finder Helpers" }
     public override var description: String { "Finder shortcuts: copy path, Terminal here, new window" }
-    public var version: String { "1.0.0" }
+    public var version: String { "1.1.0" }
     public var author: String { "MouseGestures" }
     public var category: ActionCategory { .file }
     public var isExternal: Bool = false
     public var icon: NSImage? { NSImage(systemSymbolName: "folder.badge.gearshape", accessibilityDescription: nil) }
+
+    private var settings: PluginHost?
+    public var settingsFields: [PluginSettingField] {[
+        PluginSettingField(key: "terminalApp", title: "Terminal application",
+                           kind: .choice([PluginSettingChoice("Terminal", "Terminal"), PluginSettingChoice("iTerm", "iTerm"),
+                                          PluginSettingChoice("Ghostty", "Ghostty"), PluginSettingChoice("Warp", "Warp")]),
+                           defaultValue: AnyCodable("Terminal"), help: "Used by \"Open Terminal Here\"."),
+        PluginSettingField(key: "notifyOnCopy", title: "Show a notification after copying a path", kind: .toggle, defaultValue: AnyCodable(true)),
+    ]}
+    public func pluginAttached(host: PluginHost) { settings = host }
+    public func pluginDetached() { settings = nil }
 
     public var providedActions: [PluginAction] {[
         PluginAction(id: "copy_path", name: "Copy Path of Selection", description: "Copy the POSIX path(s) of the selected Finder items", icon: "doc.on.doc"),
@@ -41,13 +52,13 @@ public final class FinderHelpersPlugin: NSObject, GestureActionPlugin {
             guard !out.isEmpty else { throw PluginError.executionFailed("Nothing selected in Finder") }
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString(out, forType: .string)
-            context.showNotification(title: "Path copied", message: out, style: .success)
+            if settings?.bool("notifyOnCopy", default: true) ?? true { context.showNotification(title: "Path copied", message: out, style: .success) }
         case "terminal_here":
             let path = try Self.osascript("tell application \"Finder\" to return POSIX path of (target of front window as alias)")
             guard !path.isEmpty else { throw PluginError.executionFailed("No Finder window is open") }
             let p = Process()
             p.executableURL = URL(fileURLWithPath: "/usr/bin/open")
-            p.arguments = ["-a", "Terminal", path]
+            p.arguments = ["-a", settings?.string("terminalApp", default: "Terminal") ?? "Terminal", path]
             try p.run()
         case "new_window":
             try context.executeAppleScript("tell application \"Finder\"\n make new Finder window to home\n activate\nend tell")

@@ -2,11 +2,11 @@ import Cocoa
 import MouseGestures
 
 @objc(QuickLaunchPlugin)
-public final class QuickLaunchPlugin: NSObject, GestureActionPlugin {
+public final class QuickLaunchPlugin: NSObject, GestureActionPlugin, PluginExtension {
     public var identifier: String { "com.mousegestures.lib.quicklaunch" }
     public var name: String { "Quick Launch" }
     public override var description: String { "Open URLs, files, folders and apps; web search" }
-    public var version: String { "1.0.0" }
+    public var version: String { "1.1.0" }
     public var author: String { "MouseGestures" }
     public var category: ActionCategory { .productivity }
     public var isExternal: Bool = false
@@ -19,6 +19,17 @@ public final class QuickLaunchPlugin: NSObject, GestureActionPlugin {
         "youtube": ("YouTube", "https://www.youtube.com/results?search_query=%s"),
         "maps": ("Apple Maps", "https://maps.apple.com/?q=%s"),
     ]
+
+    private var settings: PluginHost?
+    public var settingsFields: [PluginSettingField] {[
+        PluginSettingField(key: "defaultEngine", title: "Default search engine",
+                           kind: .choice(Self.engines.keys.sorted().map { PluginSettingChoice($0, Self.engines[$0]!.0) }),
+                           defaultValue: AnyCodable("google"), help: "Used by \"Search Selection\" when the gesture doesn't pick one."),
+        PluginSettingField(key: "customTemplate", title: "Custom search URL", kind: .text(placeholder: "https://example.com/?q=%s"),
+                           help: "Optional. Overrides the engine; %s is replaced by the selected text."),
+    ]}
+    public func pluginAttached(host: PluginHost) { settings = host }
+    public func pluginDetached() { settings = nil }
 
     public var providedActions: [PluginAction] {[
         PluginAction(id: "open_url", name: "Open URL", description: "Open a web address in the default browser",
@@ -80,7 +91,9 @@ public final class QuickLaunchPlugin: NSObject, GestureActionPlugin {
             guard pb.changeCount != before, let text = pb.string(forType: .string)?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty else {
                 throw PluginError.executionFailed("No text is selected")
             }
-            let template = Self.engines[parameters.string(for: "engine") ?? "google"]?.1 ?? Self.engines["google"]!.1
+            let custom = settings?.string("customTemplate") ?? ""
+            let engine = parameters.string(for: "engine") ?? settings?.string("defaultEngine", default: "google") ?? "google"
+            let template = custom.contains("%s") ? custom : (Self.engines[engine]?.1 ?? Self.engines["google"]!.1)
             let q = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed.subtracting(CharacterSet(charactersIn: "&+=#"))) ?? text
             if let url = URL(string: template.replacingOccurrences(of: "%s", with: q)) { NSWorkspace.shared.open(url) }
         case "open_clipboard_url":

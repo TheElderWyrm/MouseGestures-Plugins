@@ -58,7 +58,7 @@ def main():
             "CFBundleExecutable": exe, "CFBundleIdentifier": meta["id"], "CFBundleName": meta["name"],
             "CFBundlePackageType": "BNDL", "CFBundleVersion": meta["version"],
             "CFBundleShortVersionString": meta["version"], "NSPrincipalClass": exe,
-            "LSMinimumSystemVersion": args.min_macos,
+            "LSMinimumSystemVersion": args.min_macos, "MGPluginKind": meta["kind"],
         }, open(os.path.join(bundle, "Contents", "Info.plist"), "wb"))
         sh("codesign", "--force", "-s", args.identity, bundle)
         sh("codesign", "--verify", "--deep", "--strict", bundle)
@@ -69,7 +69,7 @@ def main():
         digest = hashlib.sha256(open(zip_path, "rb").read()).hexdigest()
         e = {k: meta[k] for k in ("id", "name", "kind", "version", "author", "description") if k in meta}
         if meta.get("permissions"): e["permissions"] = meta["permissions"]
-        e["minAppVersion"] = meta.get("minAppVersion", "1.0.1")
+        e["minAppVersion"] = meta.get("minAppVersion", "1.1.0")
         e["download"] = f"dist/{zip_name}"; e["sha256"] = digest
         entries.append(e)
     json.dump({"schemaVersion": 1, **lib, "plugins": entries}, open(manifest_path, "w"), indent=2)

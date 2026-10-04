@@ -1,1 +1,12 @@
-{"id":"com.mousegestures.lib.finderhelpers","name":"Finder Helpers","kind":"action","version":"1.0.0","author":"MouseGestures","description":"Copy the path of the selected Finder items, open Terminal at the current Finder folder, create a new Finder window, or reveal the front window's folder.","permissions":["systemAPIs"],"principalClass":"FinderHelpersPlugin"}
+{
+  "id": "com.mousegestures.lib.finderhelpers",
+  "name": "Finder Helpers",
+  "kind": "action",
+  "version": "1.1.0",
+  "author": "MouseGestures",
+  "description": "Copy the path of the selected Finder items, open Terminal at the current Finder folder, create a new Finder window, or reveal the front window's folder.",
+  "permissions": [
+    "systemAPIs"
+  ],
+  "principalClass": "FinderHelpersPlugin"
+}

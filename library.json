@@ -7,101 +7,101 @@
       "id": "com.mousegestures.lib.cornerdwell",
       "name": "Corner Dwell",
       "kind": "detection",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "MouseGestures",
       "description": "Triggers when the pointer rests in a screen corner for about a second (one trigger per corner). Unlike built-in screen zones, a quick pass through the corner does nothing.",
-      "minAppVersion": "1.0.1",
-      "download": "dist/com.mousegestures.lib.cornerdwell-1.0.0.zip",
-      "sha256": "1e60fa401bc988f60e96104aecfd660e62901d3a0e0f213146d6509a83e9c4c4"
+      "minAppVersion": "1.1.0",
+      "download": "dist/com.mousegestures.lib.cornerdwell-1.1.0.zip",
+      "sha256": "fd168ac016a9d6cf28c267449d1c1b5f4c1fbeffeecbb57e47b341ef40d43f06"
     },
     {
       "id": "com.mousegestures.lib.finderhelpers",
       "name": "Finder Helpers",
       "kind": "action",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "MouseGestures",
       "description": "Copy the path of the selected Finder items, open Terminal at the current Finder folder, create a new Finder window, or reveal the front window's folder.",
       "permissions": [
         "systemAPIs"
       ],
-      "minAppVersion": "1.0.1",
-      "download": "dist/com.mousegestures.lib.finderhelpers-1.0.0.zip",
-      "sha256": "c98db8069408b47f23df4988f463ff4e2c330b1f9173a1c35092ac51cecc95d3"
+      "minAppVersion": "1.1.0",
+      "download": "dist/com.mousegestures.lib.finderhelpers-1.1.0.zip",
+      "sha256": "3fbc8474b1180544e6aeea0aae7e7840c4c8246dec96c21b816b1796c0ac4b3b"
     },
     {
       "id": "com.mousegestures.lib.focustimer",
       "name": "Focus Timer",
       "kind": "action",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "MouseGestures",
       "description": "Start a countdown timer from a gesture (default 25 minutes) and get a notification and sound when it ends. Cancel or check it with other gestures.",
-      "minAppVersion": "1.0.1",
-      "download": "dist/com.mousegestures.lib.focustimer-1.0.0.zip",
-      "sha256": "3bbd07bf06cf6a30bd973b00e87f9f1cb005bc8f475787ce12f0336b316ca93f"
+      "minAppVersion": "1.1.0",
+      "download": "dist/com.mousegestures.lib.focustimer-1.1.0.zip",
+      "sha256": "60cf7c106a863f3fc823e7a76f9aa39d00856e24bbbfc056b6ab554d613308c3"
     },
     {
       "id": "com.mousegestures.lib.mouseshake",
       "name": "Mouse Shake",
       "kind": "detection",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "MouseGestures",
       "description": "A trigger that fires when you shake the pointer side to side. Bind it to any action in the gesture editor (Plugin trigger).",
-      "minAppVersion": "1.0.1",
-      "download": "dist/com.mousegestures.lib.mouseshake-1.0.0.zip",
-      "sha256": "572db3b61471bc052066bbb8590d2ea023d9e5ad70186506531836bd821da48a"
+      "minAppVersion": "1.1.0",
+      "download": "dist/com.mousegestures.lib.mouseshake-1.1.0.zip",
+      "sha256": "af91c3c58ac9b828104d8a338480b1598e416898521c3d006577ddde10ea2718"
     },
     {
       "id": "com.mousegestures.lib.quicklaunch",
       "name": "Quick Launch",
       "kind": "action",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "MouseGestures",
       "description": "Open a URL, file, folder or app with one gesture; search the selected text on the web; open a URL from the clipboard.",
       "permissions": [
         "systemAPIs"
       ],
-      "minAppVersion": "1.0.1",
-      "download": "dist/com.mousegestures.lib.quicklaunch-1.0.0.zip",
-      "sha256": "9bc37b0a61966695450482c5565a0237ee52ad71bfed4434e9026a7bcb6d7d7a"
+      "minAppVersion": "1.1.0",
+      "download": "dist/com.mousegestures.lib.quicklaunch-1.1.0.zip",
+      "sha256": "4007686a28bf26731cbc1f8f388c06532b4f66fb26076ea2e792487c2debc1ca"
     },
     {
       "id": "com.mousegestures.lib.systemevents",
       "name": "System Events",
       "kind": "detection",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "MouseGestures",
       "description": "Triggers on system events: wake from sleep, screen locked/unlocked, display connected or disconnected, power adapter plugged in or unplugged.",
-      "minAppVersion": "1.0.1",
-      "download": "dist/com.mousegestures.lib.systemevents-1.0.0.zip",
-      "sha256": "d1f33ea3a26f58751ba7ecd4b63cd5511b4b37c7d0dd30cf942ea8a98522b2f3"
+      "minAppVersion": "1.1.0",
+      "download": "dist/com.mousegestures.lib.systemevents-1.1.0.zip",
+      "sha256": "94c3643882e25e1f983090aa2a6c3cc0c0ee23daad97ad275cd55ec7567bad06"
     },
     {
       "id": "com.mousegestures.lib.systemtoggles",
       "name": "System Toggles",
       "kind": "action",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "MouseGestures",
       "description": "One-gesture system switches: toggle dark mode, lock screen, sleep display, start screen saver, toggle Dock auto-hide, empty Trash.",
       "permissions": [
         "systemAPIs"
       ],
-      "minAppVersion": "1.0.1",
-      "download": "dist/com.mousegestures.lib.systemtoggles-1.0.0.zip",
-      "sha256": "298c13ec60894ef6bd793063b802a9ba8774716df32462c4c23317ab7e3c0d0d"
+      "minAppVersion": "1.1.0",
+      "download": "dist/com.mousegestures.lib.systemtoggles-1.1.0.zip",
+      "sha256": "28ba6652fa9bf3a6c0ab3777d40435724379c26380f5bbb3baa1892892f7ddb1"
     },
     {
       "id": "com.mousegestures.lib.texttools",
       "name": "Text Tools",
       "kind": "action",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "MouseGestures",
       "description": "Transform the selected text (or clipboard): UPPERCASE, lowercase, Title Case, trim whitespace, sort lines, paste as plain text.",
       "permissions": [
         "systemAPIs"
       ],
-      "minAppVersion": "1.0.1",
-      "download": "dist/com.mousegestures.lib.texttools-1.0.0.zip",
-      "sha256": "4d7b4741224f99a4e74f7f2822cc7c4f274d10fa27c7dfc3106f5135b9698671"
+      "minAppVersion": "1.1.0",
+      "download": "dist/com.mousegestures.lib.texttools-1.1.0.zip",
+      "sha256": "756f6bda490fc6abdb7a9be278690087879cfa03379c799d050d2f11a439645c"
     }
   ]
 }

@@ -1,1 +1,12 @@
-{"id":"com.mousegestures.lib.systemtoggles","name":"System Toggles","kind":"action","version":"1.0.0","author":"MouseGestures","description":"One-gesture system switches: toggle dark mode, lock screen, sleep display, start screen saver, toggle Dock auto-hide, empty Trash.","permissions":["systemAPIs"],"principalClass":"SystemTogglesPlugin"}
+{
+  "id": "com.mousegestures.lib.systemtoggles",
+  "name": "System Toggles",
+  "kind": "action",
+  "version": "1.1.0",
+  "author": "MouseGestures",
+  "description": "One-gesture system switches: toggle dark mode, lock screen, sleep display, start screen saver, toggle Dock auto-hide, empty Trash.",
+  "permissions": [
+    "systemAPIs"
+  ],
+  "principalClass": "SystemTogglesPlugin"
+}

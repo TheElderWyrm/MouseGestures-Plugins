@@ -1,1 +1,12 @@
-{"id":"com.mousegestures.lib.quicklaunch","name":"Quick Launch","kind":"action","version":"1.0.0","author":"MouseGestures","description":"Open a URL, file, folder or app with one gesture; search the selected text on the web; open a URL from the clipboard.","permissions":["systemAPIs"],"principalClass":"QuickLaunchPlugin"}
+{
+  "id": "com.mousegestures.lib.quicklaunch",
+  "name": "Quick Launch",
+  "kind": "action",
+  "version": "1.1.0",
+  "author": "MouseGestures",
+  "description": "Open a URL, file, folder or app with one gesture; search the selected text on the web; open a URL from the clipboard.",
+  "permissions": [
+    "systemAPIs"
+  ],
+  "principalClass": "QuickLaunchPlugin"
+}

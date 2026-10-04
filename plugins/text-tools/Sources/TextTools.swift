@@ -2,17 +2,27 @@ import Cocoa
 import MouseGestures
 
 @objc(TextToolsPlugin)
-public final class TextToolsPlugin: NSObject, GestureActionPlugin {
+public final class TextToolsPlugin: NSObject, GestureActionPlugin, PluginExtension {
     public var identifier: String { "com.mousegestures.lib.texttools" }
     public var name: String { "Text Tools" }
     public override var description: String { "Transform selected text or the clipboard" }
-    public var version: String { "1.0.0" }
+    public var version: String { "1.1.0" }
     public var author: String { "MouseGestures" }
     public var category: ActionCategory { .productivity }
     public var isExternal: Bool = false
     public var icon: NSImage? { NSImage(systemSymbolName: "textformat", accessibilityDescription: nil) }
 
     private var context: PluginContext?
+    private var settings: PluginHost?
+    private var restoreClipboard: Bool { settings?.bool("restoreClipboard", default: true) ?? true }
+
+    public var settingsFields: [PluginSettingField] {[
+        PluginSettingField(key: "restoreClipboard", title: "Restore the clipboard afterwards", kind: .toggle,
+                           defaultValue: AnyCodable(true),
+                           help: "When transforming a selection, put your previous clipboard contents back after pasting."),
+    ]}
+    public func pluginAttached(host: PluginHost) { settings = host }
+    public func pluginDetached() { settings = nil }
 
     private static let applyParam = ParameterDefinition(
         key: "applyToSelection", name: "Apply to selected text", type: .boolean,
@@ -52,7 +62,7 @@ public final class TextToolsPlugin: NSObject, GestureActionPlugin {
             let saved = Self.snapshot()
             Self.set(text)
             context.sendKeyboardShortcut(keyCode: 9, modifiers: .maskCommand)
-            Self.restore(saved, after: 0.4)
+            if restoreClipboard { Self.restore(saved, after: 0.4) }
         default: throw PluginError.actionNotFound(action.id)
         }
     }
@@ -85,7 +95,7 @@ public final class TextToolsPlugin: NSObject, GestureActionPlugin {
         Self.set(f(text))
         if applyToSelection {
             context.sendKeyboardShortcut(keyCode: 9, modifiers: .maskCommand) // ⌘V
-            Self.restore(saved, after: 0.4)
+            if restoreClipboard { Self.restore(saved, after: 0.4) }
         }
     }
 

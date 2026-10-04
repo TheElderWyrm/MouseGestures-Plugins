@@ -2,11 +2,11 @@ import Cocoa
 import MouseGestures
 
 @objc(CornerDwellPlugin)
-public final class CornerDwellPlugin: NSObject, ExternalTriggerPlugin {
+public final class CornerDwellPlugin: NSObject, ExternalTriggerPlugin, PluginExtension {
     public var identifier: String { "com.mousegestures.lib.cornerdwell" }
     public var name: String { "Corner Dwell" }
     public var summary: String { "Rest the pointer in a corner" }
-    public var version: String { "1.0.0" }
+    public var version: String { "1.1.0" }
     public var author: String { "MouseGestures" }
     public var icon: String { "rectangle.inset.topright.filled" }
     public var triggers: [ExternalTriggerDefinition] {[
@@ -20,8 +20,18 @@ public final class CornerDwellPlugin: NSObject, ExternalTriggerPlugin {
     private weak var host: ExternalTriggerHost?
     private var current: String?
     private var timer: Timer?
-    private let size: CGFloat = 6        // corner hot-area, points
-    private let dwell: TimeInterval = 0.9
+    private var settings: PluginHost?
+    private var size: CGFloat { CGFloat(settings?.number("cornerSize", default: 6) ?? 6) }
+    private var dwell: TimeInterval { settings?.number("dwell", default: 0.9) ?? 0.9 }
+
+    public var settingsFields: [PluginSettingField] {[
+        PluginSettingField(key: "dwell", title: "Dwell time", kind: .number(min: 0.3, max: 3, step: 0.1, unit: "s"),
+                           defaultValue: AnyCodable(0.9), help: "How long the pointer must rest in the corner."),
+        PluginSettingField(key: "cornerSize", title: "Corner size", kind: .number(min: 2, max: 40, step: 2, unit: "pt"),
+                           defaultValue: AnyCodable(6), help: "Size of the hot area at each screen corner."),
+    ]}
+    public func pluginAttached(host: PluginHost) { settings = host }
+    public func pluginDetached() { settings = nil }
 
     public func start(host: ExternalTriggerHost) throws {
         self.host = host

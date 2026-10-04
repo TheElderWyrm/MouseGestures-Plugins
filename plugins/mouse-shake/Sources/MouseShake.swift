@@ -2,11 +2,11 @@ import Cocoa
 import MouseGestures
 
 @objc(MouseShakePlugin)
-public final class MouseShakePlugin: NSObject, ExternalTriggerPlugin {
+public final class MouseShakePlugin: NSObject, ExternalTriggerPlugin, PluginExtension {
     public var identifier: String { "com.mousegestures.lib.mouseshake" }
     public var name: String { "Mouse Shake" }
     public var summary: String { "Shake the pointer left and right" }
-    public var version: String { "1.0.0" }
+    public var version: String { "1.1.0" }
     public var author: String { "MouseGestures" }
     public var icon: String { "cursorarrow.motionlines" }
     public var triggers: [ExternalTriggerDefinition] {
@@ -16,11 +16,26 @@ public final class MouseShakePlugin: NSObject, ExternalTriggerPlugin {
     private var monitor: Any?
     private weak var host: ExternalTriggerHost?
 
-    // Tuning
-    private let minTravel: CGFloat = 70        // points between reversals
-    private let window: TimeInterval = 0.8     // seconds
-    private let reversalsNeeded = 4
+    // Tuning (live-editable in the plugin's settings)
+    private var settings: PluginHost?
+    private var minTravel: CGFloat { CGFloat(settings?.number("minTravel", default: 70) ?? 70) }
+    private var window: TimeInterval { settings?.number("window", default: 0.8) ?? 0.8 }
+    private var reversalsNeeded: Int { Int(settings?.number("reversals", default: 4) ?? 4) }
     private let cooldown: TimeInterval = 1.2
+
+    public var settingsFields: [PluginSettingField] {[
+        PluginSettingField(key: "reversals", title: "Direction changes needed",
+                           kind: .number(min: 3, max: 10, step: 1, unit: nil), defaultValue: AnyCodable(4),
+                           help: "How many left-right turns count as a shake. Lower = easier to trigger."),
+        PluginSettingField(key: "minTravel", title: "Minimum stroke length",
+                           kind: .number(min: 20, max: 300, step: 10, unit: "pt"), defaultValue: AnyCodable(70),
+                           help: "Each stroke must travel at least this far, so tiny jitters are ignored."),
+        PluginSettingField(key: "window", title: "Time window",
+                           kind: .number(min: 0.3, max: 2, step: 0.1, unit: "s"), defaultValue: AnyCodable(0.8),
+                           help: "All the turns must happen within this time."),
+    ]}
+    public func pluginAttached(host: PluginHost) { settings = host }
+    public func pluginDetached() { settings = nil }
 
     private var direction = 0
     private var segmentStartX: CGFloat = 0
