@@ -1,7 +1,6 @@
 # MouseGestures Official Plugins
 
-A MouseGestures **plugin library**. In the app: Developer ▸ Plugin Management ▸ Browse Libraries ▸
-add this repository. Format details: `docs/PLUGIN_LIBRARIES.md` in the app repo.
+The official MouseGestures **plugin library**. The app connects to it automatically: Developer ▸ Plugin Management ▸ Add Plugins. Format details: `docs/PLUGIN_LIBRARIES.md` in the app repo.
 
 | Plugin | Kind | What it does | Permissions |
 |---|---|---|---|
@@ -26,6 +25,12 @@ Compiles each `plugins/<slug>/Sources`, wraps it as `<id>.plugin`, ad-hoc signs 
 and rewrites `library.json` (SHA-256 included). Plugins import the app's own module and resolve its
 symbols at load time, so rebuild against the app version you target (`minAppVersion` in `plugin.json`).
 Commit `dist/` and `library.json` together.
+
+## Settings, services, UI
+
+Plugins can also conform to `PluginExtension` to add a settings form, a background service and a custom
+settings view (see `docs/PLUGIN_LIBRARIES.md` in the app repo). Focus Timer demonstrates all three;
+most other plugins declare settings.
 
 ## Writing a plugin
 
